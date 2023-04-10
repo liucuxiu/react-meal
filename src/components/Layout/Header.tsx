@@ -1,14 +1,15 @@
 
-import mealsImage from '../assets/meal.png'
+import mealsImage from '../../assets/meal.png'
 import classes from './Header.module.css';
 import HeaderCartButton from './HeaderCartButton';
+import React from 'react';
 
-const Header = () => {
+const Header: React.FC<{ onShowCart: any }> = (props: any) => {
   return (
     <>
       <header className={classes.header}>
         <h1>Meals</h1>
-        <HeaderCartButton/>
+        <HeaderCartButton onClickCart={props.onShowCart}/>
       </header>
 
 
