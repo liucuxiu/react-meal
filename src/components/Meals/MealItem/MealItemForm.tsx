@@ -3,19 +3,24 @@ import Input from '../../UI/Input';
 import { useRef, useState } from 'react';
 const MealItemForm = (props: any) => {
   const [amountValid, setAmountValid] = useState(true)
+  const amountInputRef = useRef()
+
   const submitHandler = (event: any) => {
     event.preventDefault()
 
     // @ts-ignore
     const enteredAmount = amountInputRef.current!.value
     const enteredAmountNumber= +enteredAmount
-    if (enteredAmount.trim().length ===0 || enteredAmountNumber < 1 || enteredAmountNumber > 5) {
+
+    //validate
+    if (enteredAmount.trim().length === 0 || enteredAmountNumber < 1 || enteredAmountNumber > 5) {
       setAmountValid(false)
       return
     }
 
+    // call function pass from context
+    props.onAddToCart(enteredAmountNumber)
   }
-  const amountInputRef = useRef()
 
   return (
     <form className={classes.form} onSubmit={submitHandler}>
@@ -25,8 +30,6 @@ const MealItemForm = (props: any) => {
         input={{
         id: 'Amount' + props.id,
         type: 'number',
-        min: '1',
-        max: '5',
         step: '1',
         defaultValue: '1'
       }}/>
